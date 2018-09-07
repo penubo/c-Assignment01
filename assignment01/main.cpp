@@ -6,10 +6,14 @@
 //  Copyright © 2018 penubo. All rights reserved.
 //
 
-#include <iostream>
+#include "linked_list.hpp"
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    Node t1(11);
+    Node t2(22, &t1);
+    Node t3(33, &t2);
+    print_list(&t3);
+    
 }

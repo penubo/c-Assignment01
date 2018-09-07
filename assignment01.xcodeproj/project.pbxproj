@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0A5206214226C300B96915 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0A5204214226C300B96915 /* node.cpp */; };
+		BD0A52092142479D00B96915 /* linked_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0A52072142479D00B96915 /* linked_list.cpp */; };
 		BD5B4892213FDDB20033A6EC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5B4891213FDDB20033A6EC /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD0A5204214226C300B96915 /* node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
+		BD0A5205214226C300B96915 /* node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = node.hpp; sourceTree = "<group>"; };
+		BD0A52072142479D00B96915 /* linked_list.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = linked_list.cpp; sourceTree = "<group>"; };
+		BD0A52082142479D00B96915 /* linked_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = linked_list.hpp; sourceTree = "<group>"; };
 		BD5B488E213FDDB20033A6EC /* assignment01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = assignment01; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5B4891213FDDB20033A6EC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				BD5B4891213FDDB20033A6EC /* main.cpp */,
+				BD0A52072142479D00B96915 /* linked_list.cpp */,
+				BD0A52082142479D00B96915 /* linked_list.hpp */,
+				BD0A5204214226C300B96915 /* node.cpp */,
+				BD0A5205214226C300B96915 /* node.hpp */,
 			);
 			path = assignment01;
 			sourceTree = "<group>";
@@ -118,7 +128,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0A52092142479D00B96915 /* linked_list.cpp in Sources */,
 				BD5B4892213FDDB20033A6EC /* main.cpp in Sources */,
+				BD0A5206214226C300B96915 /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
