@@ -16,9 +16,9 @@
  * structure LinkedList
  *
  * this structure has head, tail and size attribute.
- * head is the pointer which refers to the first node in LinkedList.
- * tail is the pointer which refers to the last node in LinkedList.
- * size is integer variable which indicates how many nodes are in LinkedList.
+ * (@member) head is the pointer which refers to the first node in LinkedList.
+ * (@member) tail is the pointer which refers to the last node in LinkedList.
+ * (@member) size is integer variable which indicates how many nodes are in LinkedList.
  *
  ******/
 struct LinkedList {
@@ -35,27 +35,45 @@ struct LinkedList {
 };
 
 // return size of the node.
-int size(LinkedList*);
+int list_cnt(LinkedList*);
 
 // add new node in front of the first node.
-void add_first(LinkedList*, Node*);
+void list_insert_head(LinkedList*, Node*);
 
 // add new node behind the last node.
-void add_last(LinkedList*, Node*);
+void list_insert_tail(LinkedList*, Node*);
+
+// add new node at the given index.
+void list_insert_index(LinkedList*, int, Node*);
 
 // remove the first node.
-Node* remove_first(LinkedList*);
+Node* list_delete_head(LinkedList*);
 
 // remove the last node.
-Node* remove_last(LinkedList*);
+Node* list_delete_tail(LinkedList*);
 
-// get the first node.
-Node* get_first(LinkedList*);
+// remove the data from list.
+Node* list_delete_data(LinkedList*, int);
 
-// get the last node.
-Node* get_last(LinkedList*);
+// remove a node at the given index.
+Node* list_delete_index(LinkedList*, int);
 
+// search a node at the given index.
+Node* list_search_index(LinkedList*, int);
 
+// search a node of having the given data.
+Node* list_search_data(LinkedList*, int);
 
+// clear the list.
+void list_clear(LinkedList*);
+
+// copy the entire list.
+LinkedList* list_copy(LinkedList*);
+
+// sort the list by ascending order.
+void list_sort_asc(LinkedList*);
+
+// sort the list by decending order.
+void list_sort_dec(LinkedList*);
 
 #endif /* linked_list_hpp */

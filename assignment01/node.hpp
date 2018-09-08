@@ -12,19 +12,30 @@
 #include <stdio.h>
 #include <iostream>
 
+/***********
+ * structure Node
+ *
+ * node structure for doubly linked list.
+ * (@member) data is integer value of the node.
+ * (@member) next is pointer of the next node.
+ * (@member) prev is pointer of the previous node.
+ *
+ ***********/
 struct Node {
     int data;
     struct Node* next;
-    Node(int data, Node *next=NULL) {
+    struct Node* prev;
+    
+    // constructor
+    Node(int data, Node *next=NULL, Node* prev=NULL) {
         this -> data = data;
         this -> next = next;
+        this -> prev = prev;
     }
 };
 
-Node* create_node(int, Node* = NULL);
-
 void print_list(Node*);
 
-//int size(Node*);
+
 
 #endif /* node_hpp */
