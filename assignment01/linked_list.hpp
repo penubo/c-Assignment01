@@ -6,11 +6,15 @@
 //  Copyright © 2018 penubo. All rights reserved.
 //
 
+
+
 #ifndef linked_list_hpp
 #define linked_list_hpp
 
-#include <stdio.h>
 #include "node.hpp"
+#include "enum_sortings.h"
+
+#include <stdio.h>
 
 /******
  * structure LinkedList
@@ -68,12 +72,18 @@ Node* list_search_data(LinkedList*, int);
 void list_clear(LinkedList*);
 
 // copy the entire list.
+LinkedList* list_copy(LinkedList*, int, int);
+
+// overloading function of list_copy.
 LinkedList* list_copy(LinkedList*);
 
 // sort the list by ascending order.
-void list_sort_asc(LinkedList*);
+void list_sort_asc(LinkedList*, Sortings);
 
 // sort the list by decending order.
-void list_sort_dec(LinkedList*);
+void list_sort_dec(LinkedList*, Sortings);
+
+// exchange data between two nodes.
+void list_exchange_data(Node*, Node*);
 
 #endif /* linked_list_hpp */

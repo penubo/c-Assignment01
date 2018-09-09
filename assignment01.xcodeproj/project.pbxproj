@@ -10,6 +10,7 @@
 		BD0A5206214226C300B96915 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0A5204214226C300B96915 /* node.cpp */; };
 		BD0A52092142479D00B96915 /* linked_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0A52072142479D00B96915 /* linked_list.cpp */; };
 		BD5B4892213FDDB20033A6EC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5B4891213FDDB20033A6EC /* main.cpp */; };
+		BDC40E892144FAB600BB0609 /* sorting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BDC40E872144FAB600BB0609 /* sorting.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,9 @@
 		BD0A52082142479D00B96915 /* linked_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = linked_list.hpp; sourceTree = "<group>"; };
 		BD5B488E213FDDB20033A6EC /* assignment01 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = assignment01; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5B4891213FDDB20033A6EC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		BDC40E872144FAB600BB0609 /* sorting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sorting.cpp; sourceTree = "<group>"; };
+		BDC40E882144FAB600BB0609 /* sorting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sorting.hpp; sourceTree = "<group>"; };
+		BDC40E8A2145039100BB0609 /* enum_sortings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = enum_sortings.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				BD5B4891213FDDB20033A6EC /* main.cpp */,
+				BDC40E8A2145039100BB0609 /* enum_sortings.h */,
+				BDC40E872144FAB600BB0609 /* sorting.cpp */,
+				BDC40E882144FAB600BB0609 /* sorting.hpp */,
 				BD0A52072142479D00B96915 /* linked_list.cpp */,
 				BD0A52082142479D00B96915 /* linked_list.hpp */,
 				BD0A5204214226C300B96915 /* node.cpp */,
@@ -130,6 +137,7 @@
 			files = (
 				BD0A52092142479D00B96915 /* linked_list.cpp in Sources */,
 				BD5B4892213FDDB20033A6EC /* main.cpp in Sources */,
+				BDC40E892144FAB600BB0609 /* sorting.cpp in Sources */,
 				BD0A5206214226C300B96915 /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

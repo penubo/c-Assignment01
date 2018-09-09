@@ -7,7 +7,7 @@
 //
 
 #include "linked_list.hpp"
-
+#include "sorting.hpp"
 /*
  * Accessor function
  *
@@ -282,6 +282,8 @@ Node* list_search_data(LinkedList* list, int data) {
  *
  * clear the list.
  *
+ * Since we are using allocation memory access for nodes,
+ * we should free memory of each node in the list.
  *
  */
 void list_clear(LinkedList* list) {
@@ -298,23 +300,67 @@ void list_clear(LinkedList* list) {
 }
 
 /*
- * copy the entire list.
+ * Accessor function
+ *
+ * copy the list from {@code} index_from to {@code} index_to.
+ * range is index_from <= index < index_to. (exclusive index_to)
+ *
+ * dynamically copy each node in the original list and paste to
+ * new linked list.
+ *
  */
-LinkedList* list_copy(LinkedList* list) {
+LinkedList* list_copy(LinkedList* list, int index_from, int index_to) {
     
     LinkedList* new_list = new LinkedList();
     
-    Node* current = list -> head;
+    int n = index_to - index_from;
     
-    while (current != NULL) {
+    if (n > list_cnt(list)) {
+        n = list_cnt(list);
+    }
+    
+    Node* current = list_search_index(list, index_from);
+    
+    for (int i = 0; i < n; i++) {
         list_insert_tail(new_list, new Node(current -> data));
         current = current -> next;
     }
-    
+   
     return new_list;
 }
 
+LinkedList* list_copy(LinkedList* list) {
+    return list_copy(list, 0, list_cnt(list));
+}
 
+
+// sort the list by ascending order.
+void list_sort_asc(LinkedList* list, Sortings sort) {
+    switch(sort) {
+        case EXCHANGE:
+            exchange_sort(list);
+            break;
+        case MERGE:
+            merge_sort(list, 0, list_cnt(list));
+            break;
+        case QUICK:
+            quick_sort(list);
+            break;
+        default:
+            break;
+    }
+}
+
+// sort the list by decending order.
+void list_sort_dec(LinkedList*) {
+    
+}
+
+void list_exchange_data(Node* node_a, Node* node_b) {
+    int temp = node_a -> data;
+    node_a -> data = node_b -> data;
+    node_b -> data = temp;
+}
 
 
 
