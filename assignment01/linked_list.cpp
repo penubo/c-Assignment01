@@ -341,7 +341,7 @@ void list_sort_asc(LinkedList* list, Sortings sort) {
             exchange_sort(list);
             break;
         case MERGE:
-            merge_sort(list, 0, list_cnt(list));
+            merge_sort(list);
             break;
         case QUICK:
             quick_sort(list);
