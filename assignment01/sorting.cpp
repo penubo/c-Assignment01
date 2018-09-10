@@ -90,11 +90,8 @@ void exchange_sort(LinkedList* list) {
  * {@code} node_right
  * reference of a node in the right list which already sorted and also copied.
  *
- * {@code} node_pivoted
- * reference of a node which will be set into the original list after every iteration.
- *
- * {@code} list_current_index
- * index of the original list which is being sorted. Basically, we rearrange every node
+ * {@code} node_current
+ * reference of a node in original list which is being sorted. Basically, we rearrange every node
  * in original list from {@code} index_from to {@code} index_to.
  *
  */
@@ -105,24 +102,23 @@ void merge(LinkedList* list, int index_from, int index_to) {
     
     Node* node_left = list_copy(list, index_from, index_from + n / 2) -> head;
     Node* node_right = list_copy(list, index_from + n / 2, index_to) -> head;
-    Node* node_pivoted = NULL;
-    
-    int list_current_index = index_from;
+    Node* node_current = list_search_index(list, index_from);
     
     while (node_left != NULL && node_right != NULL) {
         if (node_left -> data <= node_right -> data) {
-            node_pivoted = node_left;
+            list_exchange_data(node_current, node_left);
             node_left = node_left -> next;
         } else {
-            node_pivoted = node_right;
+            list_exchange_data(node_current, node_right);
             node_right = node_right -> next;
         }
-        list_exchange_data(list_search_index(list, list_current_index++), node_pivoted);
+        node_current = node_current -> next;
     }
     
     while (node_left != NULL) {
-        list_exchange_data(list_search_index(list, list_current_index++), node_left);
+        list_exchange_data(node_current, node_left);
         node_left = node_left -> next;
+        node_current = node_current -> next;
     }
     
 }
@@ -168,6 +164,53 @@ void merge_sort(LinkedList* list) {
 /*
  * quick sort
  */
-void quick_sort(LinkedList* list) {
+void quick_sort(LinkedList* list, int index_from, int index_to) {
     
+    int n = index_to - index_from;
+
+    if (n <= 1) { return; }
+    
+    Node* node_pivot = list_search_index(list, index_from);
+    Node* node_left = node_pivot -> next;
+    Node* node_right = list_search_index(list, index_to - 1);
+    
+    int index_left = index_from + 1;
+    int index_right = index_to - 1;
+    
+    bool is_left_bigger = (node_left -> data > node_pivot -> data) ? true : false;
+    bool is_right_smaller = (node_right -> data < node_pivot -> data) ? true : false;
+    
+    while (index_left <= index_right) {
+        
+        if (is_left_bigger && is_right_smaller) {
+            list_exchange_data(node_left, node_right);
+            is_left_bigger = false;
+            is_right_smaller = false;
+        }
+        
+        if (!is_left_bigger) {
+            node_left = node_left -> next;
+            index_left++;
+            if (node_left != NULL && node_left -> data > node_pivot -> data) {
+                is_left_bigger = true;
+            }
+        }
+        
+        if (!is_right_smaller) {
+            index_right--;
+            node_right = node_right -> prev;
+            if (node_right != NULL && node_right -> data < node_pivot -> data) {
+                is_right_smaller = true;
+            }
+        }
+    }
+    
+    list_exchange_data(node_pivot, node_right);
+    
+    quick_sort(list, index_from, index_right);
+    quick_sort(list, ++index_right, index_to);
+}
+
+void quick_sort(LinkedList* list) {
+    quick_sort(list, 0, list_cnt(list));
 }
