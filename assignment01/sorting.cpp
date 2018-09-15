@@ -70,6 +70,46 @@ void exchange_sort(LinkedList* list) {
     }
 }
 
+Node* partition(Node* node) {
+    
+    if(!node) { return NULL; }
+    
+    Node* node_jumping_once = node;
+    Node* node_jumping_twice = node;
+    
+    while (node_jumping_twice -> next && node_jumping_twice -> next -> next) {
+        node_jumping_twice = node_jumping_twice -> next -> next;
+        node_jumping_once = node_jumping_once -> next;
+    }
+    
+    Node* node_head_of_after_half_list = node_jumping_once -> next;
+    
+    if (node_head_of_after_half_list) {
+        node_head_of_after_half_list -> prev -> next = NULL;
+        node_head_of_after_half_list -> prev = NULL;
+    }
+    
+    return node_head_of_after_half_list;
+}
+
+Node* merge(Node* first, Node* second) {
+    
+    if (!first) {
+        return second;
+    }
+    if (!second) {
+        return first;
+    }
+    
+    if (first -> data > second -> data) {
+        second -> next = merge(first, second -> next);
+        return second;
+    } else {
+        first -> next = merge(first -> next, second);
+        return first;
+    }
+}
+
 /*
  * Helper function for merge_sort
  *
@@ -138,27 +178,25 @@ void merge(LinkedList* list, int index_from, int index_to) {
  *
  */
 
-void merge_sort(LinkedList* list, int index_from, int index_to) {
+Node* merge_sort(Node* node_first) {
     
-    check_range(list, index_from, index_to); // check validation of indicies range.
     
-    int n = index_to - index_from;          // size of the list.
-    
-    if (n <= 1) { return; }     // stopping point of recursion.
+    if (!node_first -> next) { return node_first; }     // stopping point of recursion.
     
     // divide the list first.
-    merge_sort(list, index_from, index_from + n / 2);
-    merge_sort(list, index_from + n / 2, index_to);
+    Node* node_second = partition(node_first);
+    Node* first = merge_sort(node_first);
+    Node* second = merge_sort(node_second);
     
     // merge after division.
-    merge(list, index_from, index_to);
+    return merge(first, second);
 }
 
 /*
  * overloading function of merge_sort above.
  */
 void merge_sort(LinkedList* list) {
-    merge_sort(list, 0, list_cnt(list));
+    list -> head = merge_sort(list -> head);
 }
 
 /*

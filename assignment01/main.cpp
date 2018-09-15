@@ -22,6 +22,7 @@ int main(int argc, const char * argv[]) {
     struct timespec start, end;
     
     LinkedList* list = new LinkedList();
+    LinkedList* list_copied;
     
     srand((unsigned)time(NULL));
     
@@ -29,24 +30,28 @@ int main(int argc, const char * argv[]) {
         list_insert_tail(list, new Node(rand() % 1000000));
     }
     
-    printf("before sorted\n");
-    print_list(list -> head);
-    printf("size is : %d\n", list_cnt(list));
-    
+
+    list_copied = list_copy(list);
+
     clock_gettime(_CLOCK_REALTIME, &start);
-    list_sort_asc(list, MERGE);
-//    std::this_thread::sleep_for(std::chrono::seconds(5));
+    list_sort_asc(list_copied, QUICK);
     clock_gettime(_CLOCK_REALTIME, &end);
-    
+    printf("quick: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
 
+    list_copied = list_copy(list);
+
+    clock_gettime(_CLOCK_REALTIME, &start);
+    list_sort_asc(list_copied, MERGE);
+    clock_gettime(_CLOCK_REALTIME, &end);
+    printf("merge: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
+
+    list_copied = list_copy(list);
+
+    clock_gettime(_CLOCK_REALTIME, &start);
+    list_sort_asc(list_copied, EXCHANGE);
+    clock_gettime(_CLOCK_REALTIME, &end);
+    printf("excha: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
 
     
-    printf("after sorted\n");
-    print_list(list -> head);
-    printf("size is : %d\n", list_cnt(list));
-    
-    printf("time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
-
-    
-    
+  
 }
