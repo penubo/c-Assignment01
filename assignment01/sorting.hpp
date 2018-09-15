@@ -17,15 +17,7 @@
 // exchange sort
 void exchange_sort(LinkedList*);
 
-//test
-Node* partition(Node*);
-Node* merge(Node* first, Node* second);
-Node* merge_sort(Node* node_first);
-
 // merge sort
-void merge_sort(LinkedList*, int, int);
-
-// overloading of merge sort
 void merge_sort(LinkedList*);
 
 // quick_sort

@@ -70,6 +70,17 @@ void exchange_sort(LinkedList* list) {
     }
 }
 
+
+/*
+ * Helper function for merge_sort
+ *
+ * divide a linked_list into half
+ *
+ * first of all, it makes two pivot one of which moves twice at a time and
+ * another moves once at a time. if faster pivot found the end of the list,
+ * return the slower pivot.
+ *
+ */
 Node* partition(Node* node) {
     
     if(!node) { return NULL; }
@@ -92,6 +103,23 @@ Node* partition(Node* node) {
     return node_head_of_after_half_list;
 }
 
+
+/*
+ * Helper function for merge_sort
+ *
+ * merge two lists, which is supposed to be sorted already, to an one list.
+ *
+ * recursively merge two lists. if one of the two lists are NULL, then return another
+ * node. whenever it compares between first node and second node, if first node is smaller
+ * then second node, we call merge function recursively and attach results to next first.
+ *
+ * {@code} first
+ * the head of the first list.
+ *
+ * {@code} second
+ * the head of the second list.
+ *
+ */
 Node* merge(Node* first, Node* second) {
     
     if (!first) {
@@ -110,93 +138,39 @@ Node* merge(Node* first, Node* second) {
     }
 }
 
+
+
 /*
  * Helper function for merge_sort
  *
- * merge two lists, which is supposed to be sorted already, to an one list.
- *
- * first of all, make copies of two pre-sorted lists for easy modification.
- * Each comparation of nodes in two lists, set the smaller node in original list.
- * If the node, weather left or right, gets to the end of copied list, set nodes in
- * left side to original list. Note here we don't need to care for nodes in the right
- * since they are already in right position no matter we compared them or not. We have
- * to care, However, nodes in left because positions doesn't fit into original list.
- *
- * Note that {@code} index_from is inclusive whereas {@code} index_to is exclusive.
- *
- * {@code} node_left
- * reference of a node in the left list which already sorted and also copied.
- *
- * {@code} node_right
- * reference of a node in the right list which already sorted and also copied.
- *
- * {@code} node_current
- * reference of a node in original list which is being sorted. Basically, we rearrange every node
- * in original list from {@code} index_from to {@code} index_to.
- *
- */
-
-void merge(LinkedList* list, int index_from, int index_to) {
-    
-    int n = index_to - index_from;          // size of the list which is to be merged.
-    
-    Node* node_left = list_copy(list, index_from, index_from + n / 2) -> head;
-    Node* node_right = list_copy(list, index_from + n / 2, index_to) -> head;
-    Node* node_current = list_search_index(list, index_from);
-    
-    while (node_left != NULL && node_right != NULL) {
-        if (node_left -> data <= node_right -> data) {
-            list_exchange_data(node_current, node_left);
-            node_left = node_left -> next;
-        } else {
-            list_exchange_data(node_current, node_right);
-            node_right = node_right -> next;
-        }
-        node_current = node_current -> next;
-    }
-    
-    while (node_left != NULL) {
-        list_exchange_data(node_current, node_left);
-        node_left = node_left -> next;
-        node_current = node_current -> next;
-    }
-    
-}
-
-/*
- * merge sort
- *
  * idea of merge sort is divide and conquer. Hence we first divide the list and
- * merge each pre-ordered lists into a whole sorted list using recursion technique.
+ * merge each pre-ordered lists into a whole sorted list recursively.
  *
- * @exception std::invalid_argument
- * if index_from or index_to value is not valid throw exception.
- *
- * Note that {@code} index_from is inclusive whereas {@code} index_to is exclusive.
- *
- * stopping point of recursion is when {@code} n is smaller or equal to 1.
+ * Using partition function, it divides list ({@code} node_first) into half.
+ * and call merge_sort recursively to the the first list and the second list.
+ * and return the sorted list.
  *
  */
 
-Node* merge_sort(Node* node_first) {
+Node* merge_sort_rec(Node* node_first) {
     
     
     if (!node_first -> next) { return node_first; }     // stopping point of recursion.
     
     // divide the list first.
     Node* node_second = partition(node_first);
-    Node* first = merge_sort(node_first);
-    Node* second = merge_sort(node_second);
+    Node* first = merge_sort_rec(node_first);
+    Node* second = merge_sort_rec(node_second);
     
     // merge after division.
     return merge(first, second);
 }
 
 /*
- * overloading function of merge_sort above.
+ * merge sort
  */
 void merge_sort(LinkedList* list) {
-    list -> head = merge_sort(list -> head);
+    list -> head = merge_sort_rec(list -> head);
 }
 
 /*
@@ -249,6 +223,9 @@ void quick_sort(LinkedList* list, int index_from, int index_to) {
     quick_sort(list, ++index_right, index_to);
 }
 
+/*
+ * quick sort
+ */
 void quick_sort(LinkedList* list) {
     quick_sort(list, 0, list_cnt(list));
 }
