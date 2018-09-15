@@ -15,7 +15,18 @@
 
 using namespace std;
 
-int node_cnt = 50000;
+int node_cnt = 100000;
+
+bool is_sorted(Node* head) {
+    Node* current = head;
+    while (current -> next) {
+        if (current -> data > current -> next -> data) {
+            return false;
+        }
+        current = current -> next;
+    }
+    return true;
+}
 
 int main(int argc, const char * argv[]) {
     
@@ -38,6 +49,9 @@ int main(int argc, const char * argv[]) {
     clock_gettime(_CLOCK_REALTIME, &end);
     printf("quick: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
 
+    cout << "sorted checking... " ;
+    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
+    
     list_copied = list_copy(list);
 
     clock_gettime(_CLOCK_REALTIME, &start);
@@ -45,6 +59,9 @@ int main(int argc, const char * argv[]) {
     clock_gettime(_CLOCK_REALTIME, &end);
     printf("merge: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
 
+    cout << "sorted checking... " ;
+    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
+    
     list_copied = list_copy(list);
 
     clock_gettime(_CLOCK_REALTIME, &start);
@@ -52,6 +69,9 @@ int main(int argc, const char * argv[]) {
     clock_gettime(_CLOCK_REALTIME, &end);
     printf("excha: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
 
+    cout << "sorted checking... " ;
+    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
+    
     
   
 }
