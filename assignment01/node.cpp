@@ -8,6 +8,12 @@
 
 #include "node.hpp"
 
+/*
+ * print_list
+ *
+ * print each node recursively.
+ *
+ */
 void print_list(Node* head) {
     Node* current = head;
     while(current != NULL) {

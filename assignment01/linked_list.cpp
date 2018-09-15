@@ -329,12 +329,17 @@ LinkedList* list_copy(LinkedList* list, int index_from, int index_to) {
     return new_list;
 }
 
+// overloading function of list_copy.
 LinkedList* list_copy(LinkedList* list) {
     return list_copy(list, 0, list_cnt(list));
 }
 
-
-// sort the list by ascending order.
+/*
+ * list_sort_asc
+ *
+ * It sorts list in ascending order depending on Sortings type.
+ *
+ */
 void list_sort_asc(LinkedList* list, Sortings sort) {
     switch(sort) {
         case EXCHANGE:
@@ -351,11 +356,36 @@ void list_sort_asc(LinkedList* list, Sortings sort) {
     }
 }
 
-// sort the list by decending order.
-void list_sort_dec(LinkedList*) {
+/*
+ * list_sort_dec
+ *
+ * It sorts list in descending order depending on Sortings type.
+ * Actually it sorts list in ascending order first and turn entire list
+ * over as if it sorts list in descending order.
+ *
+ */
+void list_sort_dec(LinkedList* list, Sortings sort) {
+    list_sort_asc(list, sort);
     
+    Node* current = list -> head;
+    while (current != NULL) {
+        Node* temp = current -> next;
+        current -> next = current -> prev;
+        current -> prev = temp;
+        current = current -> prev;
+    }
+    
+    Node* temp = list -> head;
+    list -> head = list -> tail;
+    list -> tail = temp;
 }
 
+/*
+ * list_exchange_data
+ *
+ * It exchanges data between two nodes.
+ *
+ */
 void list_exchange_data(Node* node_a, Node* node_b) {
     int temp = node_a -> data;
     node_a -> data = node_b -> data;

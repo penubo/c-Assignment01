@@ -9,6 +9,6 @@
 #ifndef enum_sortings_h
 #define enum_sortings_h
 
-enum Sortings { EXCHANGE, MERGE, QUICK };
+enum Sortings { QUICK, MERGE, EXCHANGE };
 
 #endif /* enum_sortings_h */

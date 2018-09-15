@@ -15,9 +15,17 @@
 
 using namespace std;
 
-int node_cnt = 100000;
+static int NODE_COUNT = 1000;
+static char* SORTING[3] = {"quick", "merge", "excha"};
 
+/*
+ * Helper function
+ *
+ * It checks if the list is sorted in ascending order.
+ *
+ */
 bool is_sorted(Node* head) {
+    if (!head) { return true; }
     Node* current = head;
     while (current -> next) {
         if (current -> data > current -> next -> data) {
@@ -28,6 +36,19 @@ bool is_sorted(Node* head) {
     return true;
 }
 
+/*
+ * Helper function
+ *
+ * initialize list randomly
+ */
+void init(LinkedList* list) {
+    srand((unsigned)time(NULL));    // random seed
+    
+    for (int i = 0; i < NODE_COUNT; i++) {    // make random list
+        list_insert_tail(list, new Node(rand() % 1000000));
+    }
+}
+
 int main(int argc, const char * argv[]) {
     
     struct timespec start, end;
@@ -35,43 +56,19 @@ int main(int argc, const char * argv[]) {
     LinkedList* list = new LinkedList();
     LinkedList* list_copied;
     
-    srand((unsigned)time(NULL));
+    init(list);
     
-    for (int i = 0; i < node_cnt; i++) {
-        list_insert_tail(list, new Node(rand() % 1000000));
+    for (int i = 0; i < 3; i++) {
+        
+        list_copied = list_copy(list);      // make a copy of the list
+        
+        clock_gettime(_CLOCK_REALTIME, &start);
+        list_sort_asc(list_copied, Sortings(i));
+        clock_gettime(_CLOCK_REALTIME, &end);
+        printf("%s: time(nano): %.0lf\n", SORTING[i],
+               (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
+        
+        cout << "sorted checking... "
+             << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
     }
-    
-
-    list_copied = list_copy(list);
-
-    clock_gettime(_CLOCK_REALTIME, &start);
-    list_sort_asc(list_copied, QUICK);
-    clock_gettime(_CLOCK_REALTIME, &end);
-    printf("quick: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
-
-    cout << "sorted checking... " ;
-    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
-    
-    list_copied = list_copy(list);
-
-    clock_gettime(_CLOCK_REALTIME, &start);
-    list_sort_asc(list_copied, MERGE);
-    clock_gettime(_CLOCK_REALTIME, &end);
-    printf("merge: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
-
-    cout << "sorted checking... " ;
-    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
-    
-    list_copied = list_copy(list);
-
-    clock_gettime(_CLOCK_REALTIME, &start);
-    list_sort_asc(list_copied, EXCHANGE);
-    clock_gettime(_CLOCK_REALTIME, &end);
-    printf("excha: time(nano): %.0lf\n", (end.tv_nsec - start.tv_nsec) + (end.tv_sec - start.tv_sec) * 1E9);
-
-    cout << "sorted checking... " ;
-    cout << (is_sorted(list_copied -> head) ? "true" : "false") << endl;
-    
-    
-  
 }

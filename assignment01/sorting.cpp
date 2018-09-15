@@ -58,6 +58,8 @@ void check_range(LinkedList* list, int index_from, int index_to) {
 
 void exchange_sort(LinkedList* list) {
     
+    if (!list -> head) { return; }
+    
     Node* node_pivoted = list -> head;
     Node* node_current = node_pivoted -> next;
     
@@ -168,60 +170,42 @@ Node* merge_sort_rec(Node* node_first) {
 
 /*
  * merge sort
+ *
+ * if list is empty return call
+ *
  */
 void merge_sort(LinkedList* list) {
+    if (!list -> head) { return; }
     list -> head = merge_sort_rec(list -> head);
 }
 
 /*
- * quick sort
+ * Helper function for quick_sort
+ *
+ * Quick sort calls functions recursively for sorting the list.
+ * In this algorithm, it pivots the very first node in the list.
+ * Given pivot node, it finds more bigger node from left and more smaller node
+ * from right. if it finds both bigger and smaller nodes then exchange them.
+ * After nodes we are comparing from both another direction collide each other,
+ * it can tell the right position where pivot node is supposed to be.
+ *
+ * For performance matter, it recieved two nodes and indices. it doesn't use
+ * list_search_index or list_search_data because those lose performance quite a lot.
+ *
+ * {@code} pivot
+ * the pivot node. it finds bigger nodes than pivot from left to right and
+ * vice versa from right to left.
+ *
+ * {@code} left
+ * this node is moving from left to right until it collides with right node.
+ * if it finds a more bigger node than pivot, then mark it in {@code} is_left_bigger.
+ *
+ * {@code} right
+ * this node is moving from right to left until it collides with right node.
+ * if it finds a more smaller node than pivot, then mark it in {@code} is_right_smaller.
+ *
+ *
  */
-void quick_sort(LinkedList* list, int index_from, int index_to) {
-    
-    int n = index_to - index_from;
-
-    if (n <= 1) { return; }
-    
-    Node* node_pivot = list_search_index(list, index_from);
-    Node* node_left = node_pivot -> next;
-    Node* node_right = list_search_index(list, index_to - 1);
-    
-    int index_left = index_from + 1;
-    int index_right = index_to - 1;
-    
-    bool is_left_bigger = (node_left -> data > node_pivot -> data) ? true : false;
-    bool is_right_smaller = (node_right -> data < node_pivot -> data) ? true : false;
-    
-    while (index_left <= index_right) {
-        
-        if (is_left_bigger && is_right_smaller) {
-            list_exchange_data(node_left, node_right);
-            is_left_bigger = false;
-            is_right_smaller = false;
-        }
-        
-        if (!is_left_bigger) {
-            node_left = node_left -> next;
-            index_left++;
-            if (node_left != NULL && node_left -> data > node_pivot -> data) {
-                is_left_bigger = true;
-            }
-        }
-        
-        if (!is_right_smaller) {
-            index_right--;
-            node_right = node_right -> prev;
-            if (node_right != NULL && node_right -> data < node_pivot -> data) {
-                is_right_smaller = true;
-            }
-        }
-    }
-    
-    list_exchange_data(node_pivot, node_right);
-    
-    quick_sort(list, index_from, index_right);
-    quick_sort(list, ++index_right, index_to);
-}
 
 void quick_sort_rec(Node* head, Node* tail, int index_from, int index_to) {
     if (index_to - index_from <= 1) { return; }
@@ -268,9 +252,13 @@ void quick_sort_rec(Node* head, Node* tail, int index_from, int index_to) {
 
 /*
  * quick sort
+ *
+ * if list is empty return call
+ *
  */
 void quick_sort(LinkedList* list) {
 //    quick_sort(list, 0, list_cnt(list));
+    if (!list -> head) { return; }
     quick_sort_rec(list -> head, list -> tail, 0, list_cnt(list));
 }
 
